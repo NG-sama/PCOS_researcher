@@ -26,7 +26,7 @@ const NewsSection = () => {
           
             href={article.url}
             className="text-shocking-600 hover:text-shocking-700"
-          >
+          <a>
             Read more
           </a>
         </div>
