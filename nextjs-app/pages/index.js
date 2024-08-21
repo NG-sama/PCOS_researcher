@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import firebase from '../utils/firebase';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import ChatModel from '../components/ChatModel';
 import NewsSection from '../components/NewsSection';
 
 const Home = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        // Redirect to the login page if the user is not authenticated
+        router.push('/login');
+      }
+    });
+
+    return unsubscribe;
+  }, [router]);
+
   return (
     <div className="min-h-screen bg-shocking-50">
       <Header />
