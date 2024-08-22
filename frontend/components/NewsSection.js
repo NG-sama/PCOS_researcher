@@ -7,7 +7,7 @@ const NewsSection = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const res = await axios.get('/api/news');
+        const res = await axios.get('${process.env.NEXT_PUBLIC_API_URL}/api/news');
         setArticles(res.data.articles);
       } catch (error) {
         console.error(error);

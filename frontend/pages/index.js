@@ -1,37 +1,42 @@
-import React, { useEffect } from 'react';
+import React, {useState} from 'react';
 import { useRouter } from 'next/router';
-import firebase from '../utils/firebase';
+import Link from 'next/link';
 import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
 import ChatModel from '../components/ChatModel';
 import NewsSection from '../components/NewsSection';
 
 const Home = () => {
+  const [user, setUser] = useState(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        // Redirect to the login page if the user is not authenticated
-        router.push('/login');
-      }
-    });
 
-    return unsubscribe;
-  }, [router]);
 
   return (
-    <div className="min-h-screen bg-shocking-50">
+    <div className="min-h-screen bg-cerise-50">
       <Header />
-      <div className="flex">
-        <Sidebar />
-        <main className="flex-1 p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <ChatModel />
-            <NewsSection />
-          </div>
-        </main>
-      </div>
+      <main className="container mx-auto p-6">
+        <h1 className="text-4xl font-bold text-cerise-800 mb-6">Welcome to PCOS Researcher</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Link href="/news">
+            <div className="bg-cerise-200 p-6 rounded-lg shadow-md hover:bg-cerise-300 transition-colors cursor-pointer">
+              <h2 className="text-2xl font-bold text-cerise-800">News Section</h2>
+              <p className="text-cerise-700">Discover the latest PCOS research news</p>
+            </div>
+          </Link>
+          <Link href="/chat">
+            <div className="bg-cerise-200 p-6 rounded-lg shadow-md hover:bg-cerise-300 transition-colors cursor-pointer">
+              <h2 className="text-2xl font-bold text-cerise-800">Chat Model</h2>
+              <p className="text-cerise-700">Interact with our AI-powered PCOS assistant</p>
+            </div>
+          </Link>
+        </div>
+        <div className="mt-6">
+          <ChatModel />
+        </div>
+        <div className="mt-6">
+          <NewsSection />
+        </div>
+      </main>
     </div>
   );
 };

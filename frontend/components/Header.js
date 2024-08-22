@@ -1,26 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { auth, signOut } from '../utils/firebase';
+import { useRouter } from 'next/router';
 
 const Header = () => {
-  return (
-    <header className="bg-shocking-600 text-white py-4 px-6">
-      {/* Header content */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          {/* Logo */}
-          <img src="/logo.png" alt="Website Logo" className="h-8 mr-4" />
-          <h1 className="text-xl font-bold">My Website</h1>
-        </div>
-        {/* Navigation menu */}
-        <nav>
-          <ul className="flex space-x-4">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-  );
+  const [user, setUser] = useState(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      router.push('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
+  // Rest of your Header component code...
 };
 
 export default Header;

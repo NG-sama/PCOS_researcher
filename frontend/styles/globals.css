@@ -1,0 +1,51 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+  --color-cerise-50: #fef1f8;
+  --color-cerise-100: #fee5f3;
+  --color-cerise-200: #ffcbea;
+  --color-cerise-300: #ffa0d7;
+  --color-cerise-400: #ff66ba;
+  --color-cerise-500: #fb399d;
+  --color-cerise-600: #db126f;
+  --color-cerise-700: #ce085e;
+  --color-cerise-800: #aa0a4e;
+  --color-cerise-900: #8d0e43;
+  --color-cerise-950: #570025;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--color-cerise-50);
+  color: var(--color-cerise-900);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-cerise-800);
+}
+
+a {
+  color: var(--color-cerise-600);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-cerise-700);
+  text-decoration: underline;
+}
+
+.btn {
+  @apply py-2 px-4 rounded transition duration-200;
+}
+
+.btn-primary {
+  @apply bg-cerise-600 text-white hover:bg-cerise-700;
+}
+
+.btn-secondary {
+  @apply bg-cerise-200 text-cerise-800 hover:bg-cerise-300;
+}
+
+/* Add more global styles as needed */

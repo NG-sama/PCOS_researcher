@@ -8,7 +8,7 @@ const ChatModel = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/api/chatmodel', { message });
+      const res = await axios.post('${process.env.NEXT_PUBLIC_API_URL}/api/chatmodel', { message }); // we use axios to make HTTP requests to these endpoints
       setResponse(res.data.response);
       setMessage('');
     } catch (error) {
