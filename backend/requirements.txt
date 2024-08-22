@@ -1,0 +1,10 @@
+# Flask web framework
+flask==2.1.2
+# Flask-CORS for handling Cross-Origin Resource Sharing (CORS)
+flask-cors==3.0.10
+# LangChain for building applications with LLMs
+langchain==0.0.139
+# OpenAI API client
+openai==0.27.4
+# Firebase Admin SDK for server-side Firebase operations
+firebase-admin==5.3.0

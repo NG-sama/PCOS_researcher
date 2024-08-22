@@ -1,20 +1,10 @@
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
-from flask import Flask, jsonify, request
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from chatmodel import get_chatmodel_response
 from semantic_search import get_news_articles
 
 app = Flask(__name__)
-
-# Initialize the Firebase Admin SDK
-cred = credentials.Certificate('path/to/serviceAccountKey.json')
-firebase_admin.initialize_app(cred, {
-    'projectId': 'your-firebase-project-id',
-})
-
-# Get a reference to the Firestore database
-db = firestore.client()
+CORS(app)
 
 @app.route('/api/chatmodel', methods=['POST'])
 def chatmodel_endpoint():
@@ -24,8 +14,9 @@ def chatmodel_endpoint():
 
 @app.route('/api/news', methods=['GET'])
 def news_endpoint():
-    articles = get_news_articles()
-    return jsonify({'articles': articles})
+    query = request.args.get('query', 'Latest PCOS research')
+    articles, answer = get_news_articles(query)
+    return jsonify({'articles': articles, 'answer': answer})
 
 if __name__ == '__main__':
     app.run(debug=True)

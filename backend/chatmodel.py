@@ -2,10 +2,8 @@ from langchain.chains import ConversationChain
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 
-# Initialize the ChatOpenAI model
 chat = ChatOpenAI(temperature=0.7)
 
-# Initialize the conversation chain
 conversation = ConversationChain(
     llm=chat,
     memory=ConversationBufferMemory(k=5),
