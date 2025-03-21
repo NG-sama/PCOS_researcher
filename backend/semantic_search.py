@@ -1,11 +1,11 @@
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_community.vectorstores import Chroma
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.chains import RetrievalQA
-from langchain.chat_models import ChatOpenAI
-import requests
-from bs4 import BeautifulSoup
+
 import os
+
+os.environ['OPENAI_API_KEY']= "sk-proj-2a3fidvvpybu8omUxd8zT3BlbkFJwKUrvY3fMmV616Op2uTb"
 
 # Initialize OpenAI embeddings
 embeddings = OpenAIEmbeddings()
@@ -23,7 +23,7 @@ def fetch_pcos_articles():
             'content': 'Researchers have discovered a new approach to treating PCOS...'
         },
         {
-            'title': 'Diet and PCOS: What's the Connection?',
+            'title': "Diet and PCOS: What's the Connection?",
             'url': 'https://example.com/pcos-study-2',
             'content': 'A recent study explores the relationship between diet and PCOS symptoms...'
         },
@@ -40,10 +40,10 @@ def process_and_vectorize_articles():
     
     # Split texts into chunks
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-    chunks = text_splitter.split_texts(texts)
+    chunks = text_splitter.split_text("\n\n".join(texts))
     
-    # Create FAISS index
-    vectorstore = FAISS.from_texts(chunks, embeddings)
+    # Create Chroma index
+    vectorstore = Chroma.from_texts(chunks, embeddings)
     
     return vectorstore, articles
 
