@@ -5,7 +5,6 @@ from langchain.chains import RetrievalQA
 
 import os
 
-os.environ['OPENAI_API_KEY']= "sk-proj-2a3fidvvpybu8omUxd8zT3BlbkFJwKUrvY3fMmV616Op2uTb"
 
 # Initialize OpenAI embeddings
 embeddings = OpenAIEmbeddings()
